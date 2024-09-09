@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test');
 
 import exp from 'constants';
-import { LandingPage } from './pages/LandingPage';
+import { LandingPage } from '../pages/LandingPage';
 
 
 let landingPage
