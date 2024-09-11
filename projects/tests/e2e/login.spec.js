@@ -8,5 +8,5 @@ test.beforeEach(async ({page}) => {
 test("Deve logar como adm", async ({page}) => {
     await adminPage.visit()
     await adminPage.submitLoginForm('admin@zombieplus.com', 'pwd123')
-    
+    await adminPage.isLoggedIn()
 })
