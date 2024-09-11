@@ -17,8 +17,16 @@ export class AdminPage{
         await this.page.locator("button").getByText("Entrar").click()
     }
 
-    async isLoggedIn() {
-         const buttonLogout = await this.page.locator('a[href="/logout"]')
-         await expect(buttonLogout).toBeVisible()
+
+    //Alternativa para verificar se esta logada//
+
+    // async isLoggedIn() {
+    //      const buttonLogout = await this.page.locator('a[href="/logout"]')
+    //      await expect(buttonLogout).toBeVisible()
+    // }
+
+    async isLoggedIn(){
+        await this.page.waitForLoadState('networkidle')
+        await expect(this.page).toHaveURL('http://localhost:3000/admin/movies')
     }
 }
