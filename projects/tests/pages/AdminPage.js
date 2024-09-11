@@ -11,13 +11,14 @@ export class AdminPage{
         await expect(loginForm).toBeVisible()
     }
 
-    async openFormLogin(){
-        
-    }
-
     async submitLoginForm(email, pass){
         await this.page.getByPlaceholder("E-mail").fill(email)
         await this.page.getByPlaceholder("Senha").fill(pass)
-        await this.page.locator("buton").getByText("Entrar").click()
+        await this.page.locator("button").getByText("Entrar").click()
+    }
+
+    async isLoggedIn() {
+         const buttonLogout = await this.page.locator('a[href="/logout"]')
+         await expect(buttonLogout).toBeVisible()
     }
 }
