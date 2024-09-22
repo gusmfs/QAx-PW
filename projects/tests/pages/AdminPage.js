@@ -29,4 +29,21 @@ export class AdminPage{
         await this.page.waitForLoadState('networkidle')
         await expect(this.page).toHaveURL('http://localhost:3000/admin/movies')
     }
+
+    async isNotLogged(){
+        await this.page.waitForLoadState('networkidle')
+        await expect(this.page).toHaveURL('http://localhost:3000/admin/login')
+    }
+    async toastHaveText(expectedMessage){
+        const toast = this.page.locator('.toast')
+        await expect(toast).toHaveText(expectedMessage)
+      
+        await expect(toast).not.toBeVisible({timeout: 5000})
+    }
+
+    async alertHaveText(targetEmail, targetPassword){
+            await expect(this.page.locator('.email-alert')).toHaveText(targetEmail)
+            await expect(this.page.locator('.password-alert')).toHaveText(targetPassword)
+    }
+   
 }
