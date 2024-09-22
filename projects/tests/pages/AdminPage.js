@@ -17,7 +17,6 @@ export class AdminPage{
         await this.page.locator("button").getByText("Entrar").click()
     }
 
-
     //Alternativa para verificar se esta logada//
 
     // async isLoggedIn() {
@@ -41,9 +40,12 @@ export class AdminPage{
         await expect(toast).not.toBeVisible({timeout: 5000})
     }
 
-    async alertHaveText(targetEmail, targetPassword){
-            await expect(this.page.locator('.email-alert')).toHaveText(targetEmail)
-            await expect(this.page.locator('.password-alert')).toHaveText(targetPassword)
+    async alertEmailHaveText(targetEmail){
+        await expect(this.page.locator('.email-alert')).toHaveText(targetEmail)
+        
     }
-   
-}
+    async alertPassHaveText(targetPassword){
+        await expect(this.page.locator('.password-alert')).toHaveText(targetPassword)
+        
+    }
+}   
