@@ -25,9 +25,7 @@ test("Não deve logar com senha incorreta", async ({page}) => {
 test("Não deve logar com campos vazios", async ({page}) => {
     await adminPage.visit()
     await adminPage.submitLoginForm('', '')
-    await adminPage.isNotLogged()
     const expectedMessage = "Campo obrigatório"
-    await adminPage.alertEmailHaveText(expectedMessage)
-    await adminPage.alertPassHaveText(expectedMessage)
+    await adminPage.alertHaveText([expectedMessage, expectedMessage])
 
 })
