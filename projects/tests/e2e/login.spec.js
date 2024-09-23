@@ -29,3 +29,10 @@ test("Não deve logar com campos vazios", async ({page}) => {
     await adminPage.alertHaveText([expectedMessage, expectedMessage])
 
 })
+
+test("Não deve logar quando preencher um email invalido", async ({page}) => {
+    await adminPage.visit()
+    await adminPage.submitLoginForm('emailinvalido', 'pwd123')
+    const expectedMessage = "Email incorreto"
+    await adminPage.alertHaveText(expectedMessage)
+})
