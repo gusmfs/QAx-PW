@@ -1,7 +1,5 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-
-import exp from 'constants';
 import { LandingPage } from '../pages/LandingPage';
 import { Toast } from '../pages/Components';
 

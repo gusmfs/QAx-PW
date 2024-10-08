@@ -36,3 +36,15 @@ test("Não deve logar quando preencher um email invalido", async ({page}) => {
     const expectedMessage = "Email incorreto"
     await adminPage.alertHaveText(expectedMessage)
 })
+test("Não deve logar quando não preencher uma senha", async({page}) => {
+    await adminPage.visit()
+    await adminPage.submitLoginForm("admin@zombieplus.com", "")
+    const expectedMessage = "Campo obrigatório"
+    await adminPage.alertHaveText(expectedMessage)
+})
+test("Não deve logar quando não preenche um email", async({page}) => {
+    await adminPage.visit()
+    await adminPage.submitLoginForm("", "pwd123")
+    const expectedMessage = "Campo obrigatório"
+    await adminPage.alertHaveText(expectedMessage)
+})
