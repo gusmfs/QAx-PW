@@ -1,17 +1,19 @@
 import { AdminPage } from "../pages/AdminPage"
 import { Toast } from "../pages/Components"
 import { test } from "@playwright/test"
-
+import { MoviePage } from "../pages/MoviesPage"
 let adminPage
 let toast
+let moviePage
 test.beforeEach(async ({page}) => {
     adminPage = new AdminPage(page)
     toast = new Toast(page)
+    moviePage = new MoviePage(page)
 })
 test("Deve logar como adm", async ({page}) => {
     await adminPage.visit()
     await adminPage.submitLoginForm('admin@zombieplus.com', 'pwd123')
-    await adminPage.isLoggedIn()
+    await moviePage.isLoggedIn()
 })
 
 test("Não deve logar com senha incorreta", async ({page}) => {
@@ -34,5 +36,17 @@ test("Não deve logar quando preencher um email invalido", async ({page}) => {
     await adminPage.visit()
     await adminPage.submitLoginForm('emailinvalido', 'pwd123')
     const expectedMessage = "Email incorreto"
+    await adminPage.alertHaveText(expectedMessage)
+})
+test("Não deve logar quando não preencher uma senha", async({page}) => {
+    await adminPage.visit()
+    await adminPage.submitLoginForm("admin@zombieplus.com", "")
+    const expectedMessage = "Campo obrigatório"
+    await adminPage.alertHaveText(expectedMessage)
+})
+test("Não deve logar quando não preenche um email", async({page}) => {
+    await adminPage.visit()
+    await adminPage.submitLoginForm("", "pwd123")
+    const expectedMessage = "Campo obrigatório"
     await adminPage.alertHaveText(expectedMessage)
 })

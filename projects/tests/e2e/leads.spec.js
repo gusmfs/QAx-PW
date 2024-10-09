@@ -1,12 +1,13 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
-
-import exp from 'constants';
 import { LandingPage } from '../pages/LandingPage';
 import { Toast } from '../pages/Components';
+import { faker } from '@faker-js/faker';
 
 let toast
 let landingPage
+const randomName = faker.person.fullName()
+const randomEmail = faker.internet.email()
 
 test.beforeEach(async ({ page }) => {
   landingPage = new LandingPage(page)
@@ -15,8 +16,16 @@ test.beforeEach(async ({ page }) => {
 test('Deve cadastrar um lead na fila de espera', async ({ page }) => {
   await landingPage.visit()
   await landingPage.openLeadModal()
-  await landingPage.SubmiteLeadForm('Gustavo', 'oigostavo@gmail.com')
+  await landingPage.SubmiteLeadForm(randomName, randomEmail)
   const expectedMessage = "Agradecemos por compartilhar seus dados conosco. Em breve, nossa equipe entrará em contato!"
+
+  await toast.haveText(expectedMessage)
+});
+test('Não deve cadastrar um lead na fila de espera com e-mail já existente', async ({ page }) => {
+  await landingPage.visit()
+  await landingPage.openLeadModal()
+  await landingPage.SubmiteLeadForm('Gustavo', 'oigostavo@gmail.com')
+  const expectedMessage = "O endereço de e-mail fornecido já está registrado em nossa fila de espera."
 
   await toast.haveText(expectedMessage)
 });
