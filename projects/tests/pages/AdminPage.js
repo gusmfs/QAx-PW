@@ -26,10 +26,6 @@ export class AdminPage{
     // }
 
 
-    async isLoggedIn(){
-        await this.page.waitForLoadState('networkidle')
-        await expect(this.page).toHaveURL('http://localhost:3000/admin/movies')
-    }
     //Verificando se esta na pagina de login após falhar no teste
     async isNotLogged(){
         await this.page.waitForLoadState('networkidle')
